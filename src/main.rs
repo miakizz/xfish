@@ -1,6 +1,6 @@
 use fish_oxide::generate_csv;
+use lambda_http::http::StatusCode;
 use lambda_http::{service_fn, tracing, Error, IntoResponse, Request, RequestExt};
-use reqwest::StatusCode;
 use std::convert::Infallible;
 use std::thread;
 use std::time::Duration;
