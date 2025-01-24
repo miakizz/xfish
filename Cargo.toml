@@ -6,11 +6,11 @@ edition = "2021"
 [dependencies]
 lambda_http = "0.14.0"
 lambda_runtime = "0.13.0"
-serde = "1.0.136"
+serde = "1.0.217"
 tokio = { version = "1", features = ["macros"] }
 x11rb = { version = "0.13.1", features = ["image"] }
 openssl = { version = "0.10.68", features = ["vendored"] }
-fish-oxide = "0.2.1"
+fish-oxide = "0.3.2"
 
 [dev-dependencies]
 tokio-test = "0.4.2"
