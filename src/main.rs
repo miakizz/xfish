@@ -1,5 +1,6 @@
+use fish_oxide::generate_csv;
+use lambda_http::http::StatusCode;
 use lambda_http::{service_fn, tracing, Error, IntoResponse, Request, RequestExt};
-use reqwest::StatusCode;
 use std::convert::Infallible;
 use std::thread;
 use std::time::Duration;
@@ -55,16 +56,8 @@ pub(crate) async fn handle_response(event: Request) -> Result<impl IntoResponse,
     //Similar process to check if clientside JS reported that it is 11:11
     //If param is missing, it is probably Mia testing code, so send a fish anyway
     let fish_str = match event.query_string_parameters_ref().unwrap().first("time") {
-        Some("bad") => {
-            include_str!("../comeback.csv")
-        }
-        _ => {
-            //who needs API gateway when you have reqwest 😤
-            &reqwest::get("https://j7qpm35ughmqz53afoye64up7a0wpawg.lambda-url.us-east-1.on.aws/")
-                .await?
-                .text()
-                .await?
-        }
+        Some("bad") => include_str!("../comeback.csv").to_owned(),
+        _ => generate_csv(),
     };
 
     // Each row is a list of points that make up a connected line
